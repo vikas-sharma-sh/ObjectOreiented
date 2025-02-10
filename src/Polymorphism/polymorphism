@@ -1,0 +1,161 @@
+First, compile-time polymorphism. From what I remember, overloading is when methods have the same name but different parameters. The compiler decides which method to call based on the arguments. So that's resolved at compile time. Overriding, on the other hand, is when a subclass provides a specific implementation of a method already defined in its superclass. That's resolved at runtime because it depends on the object's type. So the answer here is that compile-time polymorphism is method overloading, not overriding.
+
+Now, runtime polymorphism is method overriding. When you have a superclass reference pointing to a subclass object, the JVM determines which method to execute at runtime based on the actual object. That's why it's called runtime polymorphism. I need to explain that clearly.
+
+Wait, the user might confuse overloading and overriding. Let me make sure to differentiate them. Overloading is same method name, different parameters, same class. Overriding is same method signature, in subclass. Also, static methods can be overloaded but not overridden because they are bound at compile time.
+
+Examples would help. For overloading, maybe a class with multiple add methods: int add(int a, int b), double add(double a, double b). Then in the main method, calling these with different parameters shows compile-time decision.
+
+For overriding, an Animal class with a sound() method, and Dog subclass overriding it. Then creating a Dog object assigned to an Animal reference. When sound() is called, the Dog's method is invoked at runtime.
+
+I should also mention the terms static polymorphism (compile-time) and dynamic polymorphism (runtime). Static binding vs dynamic binding. Overloading is static binding, overriding is dynamic.
+
+Wait, what about return types? Overloading can have different return types, but the parameters must differ. Overriding must have the same return type or covariant return types.
+
+Also, exceptions: overriding methods can throw narrower or fewer exceptions but not broader. Overloading doesn't have such restrictions.
+
+But maybe the user doesn't need that much detail. Keep it focused on the question. Ensure the examples clearly show the difference between compile-time and runtime resolution.
+
+Another point: constructors can be overloaded but not overridden. That's a key point about overloading.
+
+For runtime polymorphism, the key takeaway is that the method called depends on the object's actual type, not the reference type. That's the essence of overriding.
+
+I should structure the answer by first answering the first part: compile-time is overloading. Then explain runtime polymorphism as overriding. Provide examples for each. Highlight the differences in when the decision is made (compile vs runtime).
+
+Check if there's any confusion between the two. Maybe mention that overloading is within the same class, while overriding is between super and subclasses. Also, in overloading, method signatures differ; in overriding, they must be the same.
+
+Also, note that in Java, method resolution for overloading is based on the reference type at compile time, but for overriding, it's based on the actual object type at runtime.
+
+I think that covers it. Make sure the examples are simple and the explanation is clear.
+
+Here's a detailed explanation of compile-time polymorphism (overloading) and runtime polymorphism (overriding):
+
+1. Compile-Time Polymorphism (Static Polymorphism)
+Definition: Resolved during compile time based on method signature.
+
+Mechanism: Achieved via method overloading.
+
+Key Points:
+
+Same method name but different parameters (number, type, or order).
+
+Return type can vary (but parameters must differ).
+
+Occurs within the same class.
+
+The compiler binds the method call to the correct version early.
+
+Example of Overloading:
+java
+Copy
+class Calculator {
+    // Method 1: Adds two integers
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method 2: Adds two doubles (overloaded)
+    double add(double a, double b) {
+        return a + b;
+    }
+
+    // Method 3: Adds three integers (overloaded)
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        System.out.println(calc.add(2, 3));       // Calls Method 1
+        System.out.println(calc.add(2.5, 3.5));   // Calls Method 2
+        System.out.println(calc.add(1, 2, 3));    // Calls Method 3
+    }
+}
+Output:
+Copy
+5
+6.0
+6
+How It Works:
+The compiler determines which add() method to call based on the number, type, or order of arguments at compile time.
+
+2. Runtime Polymorphism (Dynamic Polymorphism)
+Definition: Resolved during runtime based on the actual object type.
+
+Mechanism: Achieved via method overriding.
+
+Key Points:
+
+Same method signature in a subclass as in its superclass.
+
+The JVM binds the method call to the subclass’s implementation at runtime.
+
+Requires inheritance and the @Override annotation (optional but recommended).
+
+Example of Overriding:
+java
+Copy
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Cat meows");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a; // Reference type = Animal, but object type varies
+
+        a = new Dog();
+        a.sound(); // Output: Dog barks (Runtime decision)
+
+        a = new Cat();
+        a.sound(); // Output: Cat meows (Runtime decision)
+    }
+}
+Output:
+Copy
+Dog barks
+Cat meows
+How It Works:
+The JVM checks the actual object type (e.g., Dog or Cat) at runtime to decide which sound() method to execute.
+
+Key Differences
+Feature	Compile-Time Polymorphism (Overloading)	Runtime Polymorphism (Overriding)
+Resolution Time	Compile time	Runtime
+Mechanism	Method overloading (same name, different parameters)	Method overriding (same signature in subclass)
+Inheritance	Not required	Required
+Binding	Static binding (based on reference type)	Dynamic binding (based on actual object type)
+Example	add(int a, int b) vs. add(double a, double b)	Animal.sound() vs. Dog.sound()
+Why Overriding is Runtime Polymorphism
+The method to invoke depends on the object’s actual type (e.g., Dog or Cat), which can only be determined when the program runs.
+
+The compiler cannot predict the object type in scenarios like:
+
+java
+Copy
+Animal a = new Dog(); // Compiler sees `Animal`, but JVM knows it's a `Dog`.
+a.sound(); // Calls Dog's sound() at runtime.
+Summary
+Compile-Time Polymorphism = Overloading (same method name, different parameters).
+
+Runtime Polymorphism = Overriding (same method signature, resolved at runtime).
+
+Overloading is about method flexibility, while overriding is about method specialization in subclasses.
+
+
