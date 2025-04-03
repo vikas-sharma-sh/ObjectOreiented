@@ -38,7 +38,7 @@ public class Main {
         System.out.println("__________________________");
         Demo.display();
         System.out.println("__________________________");
-        obj.display();
+        obj1.display();
     }
 }
 

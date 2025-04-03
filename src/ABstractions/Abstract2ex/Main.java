@@ -6,6 +6,7 @@ public class Main {
         car c1 = new car();
         c1.start();
         c1.stop();
+        c1.play();
 
         System.out.println("----------------------------------------------------------------");
         bike b1 = new bike();

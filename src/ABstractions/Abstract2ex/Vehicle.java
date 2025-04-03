@@ -9,4 +9,8 @@ public abstract class Vehicle {
    void stop(){
        System.out.println("Vehicle is Stopped!!!!!!!!");
     }
+
+    void play(){
+        System.out.println("hello");
+    }
 }

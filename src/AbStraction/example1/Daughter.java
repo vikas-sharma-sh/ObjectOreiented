@@ -5,7 +5,7 @@ public class Daughter extends Parent {
 
     @Override
     void career() {
-        System.out.println("i want to become daughter!!!");
+        System.out.println("i want to become Doctor!!!");
     }
 
     @Override

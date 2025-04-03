@@ -49,8 +49,8 @@ public class BankAccount {
     }
 
     public void displayAccountDetails() {
-        System.out.println("Account Number: " + accountNumber);
-        System.out.println("Balance: ₹" + balance);
+        System.out.println("Account Number: " + getAccountNumber());
+        System.out.println("Balance: ₹" + getBalance());
     }
 
     @Override

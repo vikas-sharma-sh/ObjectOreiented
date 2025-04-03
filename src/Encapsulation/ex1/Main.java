@@ -10,6 +10,7 @@ public class Main {
 
 
         System.out.println(s1.getName());
+        System.out.println(s1.getId());
         System.out.println(s1.getCgpa());
     }
 }
